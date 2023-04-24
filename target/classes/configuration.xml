@@ -1,0 +1,50 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<beans
+        xmlns="http://www.springframework.org/schema/beans"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xmlns:context="http://www.springframework.org/schema/context" xmlns:util="http://www.w3.org/1999/xhtml"
+        xmlns:p="http://www.springframework.org/schema/p"
+        xsi:schemaLocation="http://www.springframework.org/schema/beans
+                        http://www.springframework.org/schema/beans/spring-beans.xsd
+                        http://www.springframework.org/schema/context
+                        https://www.springframework.org/schema/context/spring-context.xsd
+                        http://www.springframework.org/schema/p ">
+
+    <context:component-scan base-package="jmp.amarchuk"/>
+
+    <context:property-placeholder location="classpath:properties/event.properties,properties/ticket.properties,properties/user.properties"/>
+    <import resource="classpath:data_list/listEvent.xml"/>
+    <import resource="classpath:data_list/mapTicket.xml"/>
+    <import resource="classpath:data_list/listUser.xml"/>
+
+
+    <!--  SERVICE   -->
+
+    <bean id="eventDBService" class="jmp.amarchuk.service.EventDBService">
+        <constructor-arg index="0" ref="eventDaoDBImpl"/>
+    </bean>
+    <bean id="ticketDBService" class="jmp.amarchuk.service.TicketDBService">
+        <constructor-arg index="0" ref="ticketDaoDBImpl"/>
+    </bean>
+    <bean id="userDBService" class="jmp.amarchuk.service.UserDBService">
+        <constructor-arg index="0" ref="userDaoDBImpl"/>
+    </bean>
+
+    <!--  FACADE  -->
+
+    <bean id="facadeImpl" class="jmp.amarchuk.facade.BookingFacadeImpl">
+        <constructor-arg index="0" ref="eventDBService"/>
+        <constructor-arg index="1" ref="ticketDBService"/>
+        <constructor-arg index="2" ref="userDBService"/>
+    </bean>
+
+    <!--      POST PROCESSOR-->
+    <bean class="jmp.amarchuk.BeanPostProcessorImpl"/>
+
+
+<!--    Use "p" namespace to define properties-->
+    <bean id="propertyTestEvent" class="jmp.amarchuk.model.Event"
+    p:title="TITLE FROM BEAN PROPERTY!"
+    p:id="999"/>
+
+</beans>
