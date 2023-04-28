@@ -1,7 +1,7 @@
-package jmp.amarchuk.DAO;
+package jmp.amarchuk.facade;
 
 
-import jmp.amarchuk.facade.BookingFacadeImpl;
+import jmp.amarchuk.DAO.UserDaoDBImpl;
 import jmp.amarchuk.model.User;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
@@ -19,7 +19,7 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 
 @ExtendWith(SpringExtension.class)
 @ContextConfiguration(locations = {"classpath:configurationTest.xml"})
-class UserDaoDBImplTest {
+class BookingFacadeImplTest {
 
     @Autowired
     private UserDaoDBImpl userDao;
@@ -28,7 +28,7 @@ class UserDaoDBImplTest {
 
 
     List<User> list = new ArrayList<>();
-    private static Logger logger = LoggerFactory.getLogger(UserDaoDBImplTest.class);
+    private static Logger logger = LoggerFactory.getLogger(BookingFacadeImplTest.class);
 
     @Test
     void getAllUsers() {
